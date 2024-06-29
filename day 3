@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+//Question 1
+
+//comparing two JASON having same properties
+
+var prop1 = { name: "Person 1", age: 5 };
+var prop2 = { age: 5, name: "Person 2" };
+
+var str1 = JASON.parse(prop1);
+var str2 = JASON.parse(prop2);
+
+function compare(str1, str2) {
+  var jasonstr1 = JASON.stringify(str1, Object.keys(str1).sort());
+  var jasonstr2 = JASON.stringify(str2, Object.keys(str2).sort());
+  return jasonstr1 === jasonstr2;
+}
+if (compare(str1, str2)) {
+  console.log("properties are equal.");
+} else {
+  console.log("not equal.");
+}
+
+//Question 2
+
+//display all country flags,name,region,sub-region,population
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "https://restcountries.com/v3.1/all", true);
+xhr.onload = function () {
+  if (xhr.status >= 200 && xhr.status < 300) {
+    var response = JASON.parse(xhr.responseText);
+    console.log(response);
+    response.forEach((country) => {
+      console.log(country.name.common);
+      console.log(country.flags.png);
+      console.log(country.region.country.subregion);
+      console.log(country.population);
+    });
+  } else {
+    console.log("FAILED");
+  }
+};
+xhr.send();
+    </body>
+</html>
